@@ -40,31 +40,61 @@ public class TurnTheArray_16926 {
 //			
 //		}//입력받기 끝
 		
-		//테스트 케이스
+		//테스트 케이스1
 		int N = 4;
 		int M = 4;
 		int R = 2;
-		
-		int temp = 0;
 		
 		int[][] arr = { {1, 2, 3, 4},
 						{5, 6, 7, 8},
 						{9, 10, 11, 12},
 						{13, 14, 15, 16} };
 		
-		for(int i = 0; i < N; i++) {
+//		// 테스트 케이스2
+//		int N = 5;
+//		int M = 4;
+//		int R = 7;
+//		
+//		int[][] arr = { {1, 2, 3, 4},
+//					    {7, 8, 9, 10},
+//					    {13, 14, 15, 16},
+//				        {19, 20, 21, 22},
+//				        {25, 26, 27, 28} };
+//		for(int i = 0; i < N; i++) {
+//			
+//			for(int j = 0; j < M; j++) {
+//				System.out.print(arr[i][j] + " ");
+//			}
+//			System.out.println();
+//		}
+		
+		for(int k = 0; k < Math.min(N, M) / 2; k++) {
 			
-			for(int j = 0; j < M; j++) {
-				System.out.print(arr[i][j] + " ");
+			String layor = "";
+			
+			for(int i = k; i < arr.length - k; i++) {
+				layor += arr[i][k] + " ";
 			}
-			System.out.println();
+			for(int i = k + 1; i < arr[0].length - k; i++) {
+				layor += arr[(arr.length - 1) - k][i] + " ";;
+			}
+			
+			for(int i = (arr.length - 1) - 1 - k; i >= k; i--) {
+				layor += arr[i][(arr[0].length - 1) - k] + " ";;
+			}
+			
+			for(int i = (arr[0].length - 1) - 1 - k; i > k; i--) {
+				layor += arr[k][i] + " ";;
+			}
+			
+			System.out.println(layor);
+			
+			// 레이어를 회전 시킨다 -> 문자열의 위치만 수정
+			// 수정된 레이어를 배열의 위치에 그대로 넣는다
+			// 레이어의 개수만큼 반복
+			// 끝
 		}
-		
-		
-		
-		
-		
-		
+	
 		
 	}//main
 
