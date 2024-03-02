@@ -20,7 +20,6 @@ public class TurnTheArray_16926 {
 		int R = Integer.parseInt(tokenizer.nextToken());
 		
 		// N과 M이 둘다 홀수 또는 짝수,홀수이면서 홀수가 더 작을경우 배열 회전 불가능
-		
 		int[][] arr = new int[N][M];
 		
 		// 배열의 요소 입력받기
@@ -48,6 +47,7 @@ public class TurnTheArray_16926 {
 	}//main
 
 	
+	
 	/**
 	 * 배열을 R만큼 회전시키는 메서드
 	 * @param arr	: 입력 2차원배열
@@ -73,10 +73,9 @@ public class TurnTheArray_16926 {
 			for(int i = (arr[0].length - 1) - 1 - k; i > k; i--) {			// 레이어의 위
 				builder.append(arr[k][i] + ".");
 			}
+			
 			// 레이어를 '.'으로 연결된 문자열 builder 완료
-			
 			StringTokenizer tokenizer = new StringTokenizer(turnning(builder, R), ".");		// 회전된 레이어 문자열
-			
 			
 			// 다시 레이어의 값에 tokenizer를 순차적으로 삽입
 			for(int i = k; i < arr.length - k; i++) {						// 레이어의 왼쪽
@@ -101,6 +100,7 @@ public class TurnTheArray_16926 {
 		
 		return arr;
 	}//turnTheArray()
+	
 	
 	
 	/**
@@ -132,6 +132,7 @@ public class TurnTheArray_16926 {
 	        
 	        return builder.toString();
 	 }//turnning()
+	 
 	 
 	 
 	 // 2차원 배열출력
