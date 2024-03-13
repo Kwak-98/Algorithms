@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 class Word implements Comparable<Word>{
@@ -13,9 +17,9 @@ class Word implements Comparable<Word>{
 	private String content;
 	private int count;
 	
-	public Word(String content, int index) {
+	public Word(String content, int count) {
 		this.content = content;
-		this.count = 1;
+		this.count = count;
 	}
 	
 	public String getContent() {
@@ -26,8 +30,12 @@ class Word implements Comparable<Word>{
 		return count;
 	}
 	
-	public void addCount() {
-		this.count += 1;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	@Override
@@ -42,7 +50,7 @@ class Word implements Comparable<Word>{
 	    	if(compare != 0) {
 	    		return compare;
 	    	}else {
-	    		return this.getContent().compareTo(w.getContent());
+	    		return this.getContent().compareTo(w.getContent());	// 길이가 같으면 알파벳순으로
 	    	}
 	    }
 	}//compareTo()
@@ -52,7 +60,8 @@ class Word implements Comparable<Word>{
 public class MemorizingEnglishwordsIsPainful_20920 {
 
 	public static void main(String[] args) throws IOException {
-	ArrayList<Word> list = new ArrayList<>();
+		
+	HashMap<String, Integer> map = new HashMap<>();
 	BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	StringBuilder builder = new StringBuilder();
@@ -68,27 +77,27 @@ public class MemorizingEnglishwordsIsPainful_20920 {
 		
 		if(line.length() < M) {	// 무시할 단어 무시
 			continue;
-		}else {
-			boolean check = false;
-			for (Word w : list) {
-                if (w.getContent().equals(line)) {
-                    w.addCount();
-                    
-                    check = true;	// 중복된 단어 등장
-                    break;
-                }
-            }// 탐색 종료
-			
-			
-			if (!check) {			// 처음있는 단어
-		         list.add(new Word(line, i));
-		     }
-		}         
+		}
+		
+		if(map.containsKey(line)) {
+            map.put(line, map.get(line) + 1);	// 이미 있는단어면 횟수 + 1
+        } else {
+            map.put(line, 1);					// 없으면 횟수1
+        }
 		
 	}// 입력받기 종료
 	
-	list.stream().sorted()
-				 .forEach(w -> builder.append(w.getContent() + "\n"));
+	PriorityQueue<Word> pQue = new PriorityQueue<>();	// 우선순위 큐
+	
+	for(Map.Entry<String, Integer> word : map.entrySet()) {	// 우선순위 큐에 Word객체
+		pQue.add(new Word(word.getKey(), word.getValue()));
+	}
+	
+	while (!pQue.isEmpty()) {
+        builder.append(pQue.poll().getContent() + "\n");
+    }
+	
+	builder.deleteCharAt(builder.length() - 1);
 	
 	writer.write(builder.toString());
 	writer.flush();
