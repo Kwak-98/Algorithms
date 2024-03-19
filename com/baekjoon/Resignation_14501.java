@@ -1,71 +1,42 @@
 package com.baekjoon;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-class Counsel {
-
-	private int reqDay;
-	private int pay;
-	
-	public Counsel(int reqDay, int pay) {
-		this.reqDay = reqDay;
-		this.pay = pay;
-	}
-
-	public int getReqDay() {
-		return reqDay;
-	}
-
-	public int getPay() {
-		return pay;
-	}
-
-	
-}//End of counsel
-
 public class Resignation_14501 {
-
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer tokenizer;
 		
-		ArrayList<Counsel> list = new ArrayList<>();	// 상담일정
-		ArrayList<Integer> payList = new ArrayList<>();	// 모든 가능한 수익
+		int N = Integer.parseInt(reader.readLine());	// 퇴사일
 		
-		int N = Integer.parseInt(reader.readLine());	// N일동안 상담
+		int[] day = new int[N];
+		int[] pay = new int[N];
+		int[] dp = new int[N + 1];
 		
-		for(int i = 1; i <= N; i++) {
+		for(int i = 0; i < N; i++) {
 			
 			tokenizer = new StringTokenizer(reader.readLine());
 			
-			int reqDay = Integer.parseInt(tokenizer.nextToken());
-			int pay = Integer.parseInt(tokenizer.nextToken());
+			day[i] = Integer.parseInt(tokenizer.nextToken());
+			pay[i] = Integer.parseInt(tokenizer.nextToken());
+		
+		}	
 			
-			if(i + reqDay > N) {	// 퇴사이후까지 진행되는 상담은 제외
-				continue;
+		for (int i=0; i<N; i++) {
+			if (i + day[i] <= N) {
+				//날짜가 범위를 넘어가지 않는 경우
+				dp[i + day[i]] = Math.max(dp[i + day[i]], dp[i] + pay[i]);
 			}
-			
-			list.add(new Counsel(reqDay, pay));
-			
+			//현재 경우의 수가 0일 수 있기 때문에 이전의 최대값을 넣어줌.
+			//해당 날짜에 일할 수 없다면, 이전까지 일한 최대 수당을 넣어주어야 한다.
+			dp[i+1] = Math.max(dp[i+1], dp[i]);
 		}
+		System.out.println(dp[N]);
 		
-		for(int i = 0; i < list.size(); i++) {
-			
-			int day = 1;
-			 
-			
-			
-		}
-		
-		
-		
-	}//main
-
+	}    
 }//End of class
