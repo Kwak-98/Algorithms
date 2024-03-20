@@ -1,8 +1,10 @@
 package com.baekjoon;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -10,6 +12,7 @@ public class BlackJack_2798 {
 
 	public static void main(String[] args) throws IOException {
 		
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
 		StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
@@ -41,9 +44,11 @@ public class BlackJack_2798 {
 								  .max()
 								  .orElseThrow();
 		
-		reader.close();
 								  
-		System.out.print(result);
+		writer.write(result+"");
+		
+		writer.close();
+		reader.close();
 		
 	}//main
 
