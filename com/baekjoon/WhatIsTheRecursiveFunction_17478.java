@@ -24,6 +24,7 @@ public class WhatIsTheRecursiveFunction_17478 {
 		builder.deleteCharAt(builder.length() - 1);
 		
 		writer.write(builder.toString());
+		writer.flush();
 		
 		reader.close();
 		writer.close();
